@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+
+# secrets / credentials (contains JWT token)
+read.MD
+
+# logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
