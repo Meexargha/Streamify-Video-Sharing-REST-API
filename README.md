@@ -72,6 +72,60 @@ Streamify enables users to:
 
 ---
 
+## ⚡ Performance Optimization
+
+Streamify uses **MongoDB indexes** to ensure fast query performance even as your data grows. Indexes are automatically created when Mongoose models are loaded.
+
+### 📊 Database Indexes
+
+#### User Collection
+| Index | Field | Purpose |
+|-------|-------|---------|
+| Unique | `email` | Fast login lookups & prevents duplicate emails |
+| Index | `channelName` | Channel name searches |
+| Index | `subscribers` (desc) | Sort by subscriber count |
+| Index | `subscribedChannels` | Subscription queries |
+
+#### Video Collection
+| Index | Field | Purpose |
+|-------|-------|---------|
+| Index | `user_id` | Fast user video retrieval |
+| Index | `createdAt` (desc) | Sort videos by date |
+| Index | `category` | Category filtering |
+| Index | `tags` | Tag-based searches |
+| Compound | `user_id` + `createdAt` | Optimized user video listing |
+
+### 🚀 Performance Benefits
+
+- **Faster Queries** — Indexes eliminate full collection scans
+- **Better UX** — Sub-second response times for video listings
+- **Scalability** — Handles millions of records efficiently
+- **Optimized Joins** — Compound indexes for common query patterns
+
+### 📝 Index Creation Notes
+
+Indexes are created automatically when the server starts. To apply existing indexes to an existing collection, run:
+```bash
+# For user collection
+npx mongo
+use your-database
+db.users.createIndex({channelName: 1})
+db.users.createIndex({subscribers: -1})
+db.users.createIndex({subscribedChannels: 1})
+db.users.createIndex({email: 1}, {unique: true})
+
+# For video collection
+db.videos.createIndex({user_id: 1})
+db.videos.createIndex({createdAt: -1})
+db.videos.createIndex({category: 1})
+db.videos.createIndex({tags: 1})
+db.videos.createIndex({user_id: 1, createdAt: -1})
+```
+
+> ⚠️ **Note**: Unique indexes may fail if duplicate emails exist. Run `db.users.dropIndex("email_1")` first if needed, then clean up duplicates before re-creating.
+
+---
+
 ## 🛠️ Tech Stack
 
 | Layer | Technology |

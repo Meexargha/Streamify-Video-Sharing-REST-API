@@ -90,6 +90,13 @@ videoSchema.virtual("view").get(function () {
 
 videoSchema.set("toJSON", { virtuals: true });
 
+// MongoDB indexes for performance
+videoSchema.index({ user_id: 1 });
+videoSchema.index({ createdAt: -1 });
+videoSchema.index({ category: 1 });
+videoSchema.index({ tags: 1 });
+videoSchema.index({ user_id: 1, createdAt: -1 });
+
 
 const videoModel = mongoose.model("Video", videoSchema);
 

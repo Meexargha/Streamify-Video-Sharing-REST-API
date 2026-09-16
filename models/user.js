@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     phone:{
         type:String,
@@ -32,8 +33,14 @@ const userSchema = new mongoose.Schema({
     },
     subscribedChannels:[{
         type:mongoose.Schema.Types.ObjectId,ref:'User'
-}]    
+}],
 },{timestamps:true});
+
+// MongoDB indexes for performance
+userSchema.index({ channelName: 1 });
+userSchema.index({ subscribers: -1 });
+userSchema.index({ subscribedChannels: 1 });
+userSchema.index({ email: 1 }, { unique: true });
 
 
 const User = mongoose.model('User',userSchema);
