@@ -1,6 +1,6 @@
 # 🎬 Streamify — Video Sharing REST API
 
-A full-featured **video sharing REST API** built with Node.js, Express, MongoDB, and Cloudinary. Users can sign up, log in, upload videos with thumbnails, manage their content, like/unlike, subscribe to channels, and browse all videos.
+A full-featured **video sharing REST API** built with Node.js, Express, MongoDB, and Cloudinary. Users can sign up, log in, upload videos with thumbnails, manage their content, like, subscribe to channels, and browse all videos.
 
 ---
 
