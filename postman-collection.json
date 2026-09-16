@@ -1,0 +1,488 @@
+{
+  "info": {
+    "_postman_id": "streamify-video-api",
+    "name": "Streamify Video API",
+    "description": "Postman collection for Streamify video sharing REST API",
+    "version": "1.0.0",
+    "postman": "3.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/postman_collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "signup"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "user@test.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "password"
+                },
+                {
+                  "key": "channelName",
+                  "value": "Test Channel",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "logoUrl",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 201",
+              "status": "Created",
+              "code": 201
+            },
+            {
+              "name": "Error 500",
+              "status": "Internal Server Error",
+              "code": 500
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "user@test.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "password"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "login"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 404",
+              "status": "Not Found",
+              "code": 404
+            },
+            {
+              "name": "Error 401",
+              "status": "Unauthorized",
+              "code": 401
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User Routes",
+      "item": [
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/update-profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "update-profile"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "channelName",
+                  "value": "New Channel Name",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "0987654321",
+                  "type": "text"
+                },
+                {
+                  "key": "logo",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 500",
+              "status": "Internal Server Error",
+              "code": 500
+            }
+          ]
+        },
+        {
+          "name": "Subscribe to Channel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channelId\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/subscribe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "subscribe"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 400",
+              "status": "Bad Request",
+              "code": 400
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Video Routes",
+      "item": [
+        {
+          "name": "Upload Video",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "upload"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "My Awesome Video",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a great video about something",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "Education",
+                  "type": "text"
+                },
+                {
+                  "key": "tags",
+                  "value": "education,tutorial,learning",
+                  "type": "text"
+                },
+                {
+                  "key": "video",
+                  "type": "file"
+                },
+                {
+                  "key": "thumbnail",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 201",
+              "status": "Created",
+              "code": 201
+            },
+            {
+              "name": "Error 400",
+              "status": "Bad Request",
+              "code": 400
+            }
+          ]
+        },
+        {
+          "name": "Update Video",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/update/{{videoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "update", "{{videoId}}"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Updated Video Title",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "Updated Category",
+                  "type": "text"
+                },
+                {
+                  "key": "tags",
+                  "value": "updated,tag1,tag2",
+                  "type": "text"
+                },
+                {
+                  "key": "thumbnail",
+                  "type": "file"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 403",
+              "status": "Forbidden",
+              "code": 403
+            }
+          ]
+        },
+        {
+          "name": "Delete Video",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/delete/{{videoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "delete", "{{videoId}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 403",
+              "status": "Forbidden",
+              "code": 403
+            }
+          ]
+        },
+        {
+          "name": "Get All Videos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "all"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            }
+          ]
+        },
+        {
+          "name": "Get My Videos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/my-videos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "my-videos"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            }
+          ]
+        },
+        {
+          "name": "Get Video Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/{{videoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "{{videoId}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            }
+          ]
+        },
+        {
+          "name": "Like Video",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_JWT_TOKEN"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"videoId\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/videos/like",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "videos", "like"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success 200",
+              "status": "OK",
+              "code": 200
+            },
+            {
+              "name": "Error 404",
+              "status": "Not Found",
+              "code": 404
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "default"
+    }
+  ]
+}

@@ -76,6 +76,84 @@ Server runs at `http://localhost:3000`
 | `POST` | `/api/v1/users/signup` | Create a new user account |
 | `POST` | `/api/v1/users/login` | Login with email & password |
 
+### 📱 Postman API Testing
+
+You can test all API endpoints using the official Postman collection:
+
+🔗 **Postman Collection**: [Download Streamify Video API Collection](postman-collection.json)
+
+#### Postman Collection Features:
+
+- ✅ All endpoints (Auth, User, Video routes)
+- ✅ Request/response examples
+- ✅ Variables setup (base URL, auth tokens)
+- ✅ Form data and JSON bodies
+- ✅ File upload support
+- ✅ Error handling examples
+
+#### Quick Start with Postman:
+
+1. **Install Postman** (Desktop app or web)
+2. **Import Collection**:
+   - Click `Import` → Select `postman-collection.json`
+   - Or paste this raw URL: `https://github.com/Meexargha/Streamify-Video-Sharing-REST-API/raw/main/postman-collection.json`
+3. **Set Environment Variables**:
+   - Create environment: `baseUrl = http://localhost:3000`
+   - Update `YOUR_JWT_TOKEN` with actual token from login response
+4. **Test Endpoints**:
+   - Use the built-in test cases for expected responses
+   - Import collections automatically validate responses
+
+#### Expected Response Formats:
+
+**User Signup (POST /api/v1/users/signup)**:
+```json
+{
+  "message": "User created successfully",
+  "user": {
+    "_id": "user_id_here"
+  }
+}
+```
+
+**User Login (POST /api/v1/users/login)**:
+```json
+{
+  "_id": "user_id_here",
+  "channelName": "channel_name",
+  "email": "user@example.com",
+  "phone": "phone_number",
+  "logoId": "logo_id",
+  "logoUrl": "https://cloudinary.com/logo_url",
+  "token": "jwt_token_here",
+  "subscription": "plan_type",
+  "subscribedChannels": ["channel_id1", "channel_id2"]
+}
+```
+
+**Video Upload (POST /api/v1/videos/upload)**:
+```json
+{
+  "message": "Video uploaded successfully",
+  "video": {
+    "_id": "video_id_here",
+    "title": "video_title",
+    "description": "video_description"
+  }
+}
+```
+
+**Error Responses** (all error endpoints return similar format):
+```json
+{
+  "error": "Error message"
+}
+```
+
+> 💡 **Tip**: Use the Postman collection's built-in tests to automatically validate response formats and status codes.
+
+---
+
 ### 👤 User Routes (Auth required — send JWT in `Authorization: Bearer <token>` header)
 
 | Method | Endpoint | Description |
